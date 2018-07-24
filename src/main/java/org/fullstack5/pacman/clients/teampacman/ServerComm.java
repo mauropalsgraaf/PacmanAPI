@@ -64,8 +64,9 @@ public final class ServerComm {
     }
 
     public Flux<GameState> establishGameStateFlux(final String gameId) {
+         System.out.println("being called");
         final StateRequest request = new StateRequest(gameId);
-        return WebClient.create(this.url).post()
+        final Flux<GameState> f = WebClient.create(this.url).post()
                 .uri("/current-state")
                 .body(BodyInserters.fromObject(request))
                 .accept(MediaType.APPLICATION_STREAM_JSON)
@@ -75,6 +76,9 @@ public final class ServerComm {
                     System.out.println("Stream terminated remotely. Exiting");
                     System.exit(1);
                 });
+
+        System.out.println(f);
+        return f;
     }
 
 }

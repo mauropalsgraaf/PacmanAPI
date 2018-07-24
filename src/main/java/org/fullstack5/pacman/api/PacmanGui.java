@@ -44,7 +44,7 @@ public final class PacmanGui {
     public final void initialize(final Flux<GameState> flux) {
         flux.subscribe(state -> {
             this.state = state;
-            System.out.println("Received " + state);
+            // System.out.println("Received " + state);
             renderProgress = 0;
         },
         state -> {

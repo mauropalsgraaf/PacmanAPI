@@ -19,9 +19,11 @@ public final class RandomPacmanAI implements AI {
     private final String gameId;
     private final String authId;
     private final Maze maze;
+    private final ServerComm comm;
 
     @Override
     public final void runAI(final GameState state) {
+        System.out.println("\"moving\" = " + "moving");
         final MovingPiece ghost = state.getPacman();
         final List<Direction> directions = ClientUtils.getAvailableDirections(maze, ghost);
         if (directions.size() > 1) {
@@ -34,6 +36,6 @@ public final class RandomPacmanAI implements AI {
     private void performMove(final Direction direction) {
         final MoveRequest request = new MoveRequest(gameId, authId, direction, Piece.Type.PACMAN);
 
-        //ServerComm.performMove(request);
+        comm.performMove(request);
     }
 }

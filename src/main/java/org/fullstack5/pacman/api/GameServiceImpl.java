@@ -54,6 +54,9 @@ public class GameServiceImpl implements GameService {
         runner.start(gameId, step);
         runner.getFlux().subscribe(null, null, removeGame);
 
+        System.out.println(gameId);
+
+        System.out.println(games);
         return new GameRegistered(gameId);
     }
 
@@ -61,6 +64,9 @@ public class GameServiceImpl implements GameService {
     public PlayerRegistered registerPlayer(String gameId, PlayerType type) {
         // generate new random authId
         String authId = AuthenticationToken.create();
+        System.out.println("registerPlayer");
+        System.out.println(gameId);
+        System.out.println(type);
 
         GameRunner runner = games.get(gameId);
         runner.setPlayerAuthId(authId, type);

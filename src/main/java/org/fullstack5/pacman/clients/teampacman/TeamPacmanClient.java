@@ -5,6 +5,7 @@ import org.fullstack5.pacman.api.models.response.GameState;
 import org.fullstack5.pacman.api.models.response.PlayerRegistered;
 import org.fullstack5.pacman.clients.teampacman.ghosts.AStarGhostAI;
 import org.fullstack5.pacman.clients.teampacman.pacman.RandomPacmanAI;
+import org.fullstack5.pacman.clients.teampacman.pacman.ReinforcementPacmanAI;
 import reactor.core.publisher.Flux;
 
 public final class TeamPacmanClient implements Runnable {
@@ -27,18 +28,22 @@ public final class TeamPacmanClient implements Runnable {
         final String gameId = comm.startGame();
         final Flux<GameState> flux = comm.establishGameStateFlux(gameId);
 
+        // System.out.println("registerPlayer");
         final PlayerRegistered pacmanPlayer = comm.registerPlayer(gameId, PlayerType.PACMAN);
-        final RunnerThread pacmanThread = new RunnerThread(new RandomPacmanAI(gameId, pacmanPlayer.getAuthId(), pacmanPlayer.getMaze()));
+        // System.out.println("beforeRunningthead");
+        final RunnerThread pacmanThread = new RunnerThread(new ReinforcementPacmanAI(gameId, pacmanPlayer.getAuthId(), pacmanPlayer.getMaze(), comm));
+        // System.out.println("after");
         flux.subscribe(pacmanThread::updateState);
 
         final PlayerRegistered ghostPlayer = comm.registerPlayer(gameId, PlayerType.GHOSTS);
         final RunnerThread ghostThread = new RunnerThread(new AStarGhostAI(gameId, ghostPlayer.getAuthId(), ghostPlayer.getMaze()));
         flux.subscribe(ghostThread::updateState);
+
     }
 
     public static void main(final String...args) {
-        String hostAndPort = args[0];
-        String gameId = args[1];
+        String hostAndPort = "http://localhost:8080";
+        String gameId = "nckw";
         new TeamPacmanClient(hostAndPort, gameId).run();
     }
 

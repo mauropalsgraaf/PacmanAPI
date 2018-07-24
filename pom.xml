@@ -70,7 +70,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>org.fullstack5.pacman.clients.teampacman.Main</mainClass>
+							<mainClass>org.fullstack5.pacman.clients.teampacman.TeamPacmanClient</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

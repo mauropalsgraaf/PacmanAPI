@@ -1,9 +1,6 @@
 package org.fullstack5.pacman.api.models.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.fullstack5.pacman.api.models.Piece;
 import org.fullstack5.pacman.api.models.Direction;
 
@@ -14,6 +11,7 @@ import org.fullstack5.pacman.api.models.Direction;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public final class MoveRequest {
     private String gameId;
     private String authId;

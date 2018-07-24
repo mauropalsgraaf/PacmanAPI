@@ -34,9 +34,14 @@ public class Main implements Runnable {
         PacmanService service = new PacmanService();
 
         Flux<GameState> state = comm.establishGameStateFlux(gameId);
+
+        boolean exit = false;
+
         state.subscribe(s -> {
             MoveRequest request = service.determineNextMove(gameId, registered, s);
             comm.performMove(request);
         });
+
+        while(true) {}
     }
 }

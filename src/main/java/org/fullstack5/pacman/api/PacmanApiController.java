@@ -49,7 +49,8 @@ public class PacmanApiController {
     @PostMapping(path = "/perform-move")
     public void performMove(
             @RequestBody MoveRequest request) {
-        System.out.println(String.format("/perform-move called with %s %s", request.getType(), request.getDirection()));
+        System.out.println("perform move");
+        System.out.println(request.toString());
         service.performMove(
                 request.getGameId(),
                 request.getAuthId(),
